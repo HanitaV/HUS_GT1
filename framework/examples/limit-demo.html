@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Demo: Giới hạn dãy số – Limit Approacher</title>
+  <link rel="stylesheet" href="../css/main.css">
+  <script src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css">
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+</head>
+<body>
+  <button class="theme-toggle" onclick="toggleTheme()">Dark / Light</button>
+
+  <div class="container">
+    <h1>Dạng 2: Giới hạn của dãy số</h1>
+    <p>Các điểm tiến dần tới giới hạn <span id="limit-math"></span> nhưng không bao giờ chạm tới.</p>
+
+    <div class="controls">
+      <label>Số số hạng N: <input type="range" id="nSlider" min="1" max="25" value="5"> <span id="nVal">5</span></label>
+      <label>ε (dải lân cận): <input type="range" id="epsSlider" min="0" max="0.5" step="0.05" value="0"> <span id="epsVal">0</span></label>
+      <button id="playBtn">Play animation</button>
+      <button id="resetBtn">Reset</button>
+    </div>
+
+    <div id="board" class="viz-container jxgbox"></div>
+
+    <div class="explanation">
+      <strong>Nguyên lý:</strong> Dãy \( a_n = 1 + \frac{1}{n} \) tiến tới \( L = 1 \). 
+      Khi \( n \to \infty \), các điểm \( (n, a_n) \) ngày càng gần đường thẳng \( y = 1 \) (nét đứt đỏ) nhưng không bao giờ nằm trên đó.
+      Đây là cách trực quan hóa khái niệm giới hạn "tiến tới nhưng không chạm".
+    </div>
+  </div>
+
+  <script src="../js/core/visualizer-base.js"></script>
+  <script src="../js/viz/limit-approacher.js"></script>
+  <script>
+    function toggleTheme() {
+      const html = document.documentElement;
+      html.setAttribute('data-theme', html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+    }
+
+    // Render KaTeX
+    katex.render("L = 1", document.getElementById('limit-math'));
+
+    const viz = createLimitApproacher('board', { L: 1, maxN: 25 });
+
+    const slider = document.getElementById('nSlider');
+    const nVal = document.getElementById('nVal');
+    slider.addEventListener('input', () => {
+      const n = +slider.value;
+      nVal.textContent = n;
+      viz.updateToN(n);
+    });
+
+    document.getElementById('playBtn').addEventListener('click', () => {
+      viz.stop();
+      viz.play(250);
+    });
+
+    document.getElementById('resetBtn').addEventListener('click', () => {
+      viz.stop();
+      slider.value = 5;
+      nVal.textContent = 5;
+      viz.updateToN(5);
+      document.getElementById('epsSlider').value = 0;
+      document.getElementById('epsVal').textContent = 0;
+      viz.setEpsilon(0);
+    });
+
+    const epsSlider = document.getElementById('epsSlider');
+    const epsVal = document.getElementById('epsVal');
+    epsSlider.addEventListener('input', () => {
+      const eps = +epsSlider.value;
+      epsVal.textContent = eps.toFixed(2);
+      viz.setEpsilon(eps);
+    });
+  </script>
+</body>
+</html>

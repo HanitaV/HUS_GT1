@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Demo: Tổng riêng chuỗi số (Dạng 16)</title>
+  <link rel="stylesheet" href="../css/main.css">
+  <script src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css">
+</head>
+<body>
+  <button class="theme-toggle" onclick="document.documentElement.setAttribute('data-theme', document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark')">Dark / Light</button>
+  <div class="container">
+    <h1>Dạng 16: Hội tụ chuỗi số – Tổng riêng</h1>
+    <p>Các điểm \( S_N \) tiến dần tới tổng chuỗi (đường nét đứt).</p>
+    <div class="controls">
+      <label>N: <input type="range" id="nSlider" min="1" max="30" value="5"> <span id="nVal">5</span></label>
+      <button id="playBtn">Play</button>
+    </div>
+    <div id="board" class="viz-container jxgbox"></div>
+    <div class="explanation">
+      Ví dụ chuỗi \(\sum \frac{1}{n^2}\) hội tụ tới \(\frac{\pi^2}{6}\). Các tổng riêng tiến gần nhưng không vượt quá tổng.
+    </div>
+  </div>
+  <script src="../js/core/visualizer-base.js"></script>
+  <script src="../js/core/function-evaluator.js"></script>
+  <script src="../js/viz/series-partial-sums.js"></script>
+  <script>
+    const viz = createSeriesPartialSums('board', { termFormula: '1/n^2', maxN: 30 });
+    const slider = document.getElementById('nSlider');
+    const nVal = document.getElementById('nVal');
+    slider.addEventListener('input', () => {
+      const n = +slider.value;
+      nVal.textContent = n;
+      viz.updateToN(n);
+    });
+    document.getElementById('playBtn').addEventListener('click', () => {
+      viz.stop();
+      viz.play(150);
+    });
+  </script>
+</body>
+</html>

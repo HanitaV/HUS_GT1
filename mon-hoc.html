@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tiệm Cận — các gói môn học</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,500;0,7..72,600;1,7..72,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="tiemcan.css">
+<link rel="stylesheet" href="docs.css">
+<script>try { const t = localStorage.getItem('tc-theme'); if (t) document.documentElement.dataset.theme = t; } catch {}</script>
+<script type="module" src="src/tiemcan.js"></script>
+</head>
+<body>
+<div class="layout">
+  <nav class="toc" aria-label="Mục lục">
+    <p class="brand">Tiệm Cận</p>
+    <p class="brand-sub">Một lõi, nhiều môn học</p>
+    <ol>
+      <li><a href="index.html">← Giải tích I</a></li>
+      <li><a href="#bai-hoc">Mẫu một bài học</a></li>
+      <li><a href="#dai-so">Đại số tuyến tính</a></li>
+      <li><a href="#vat-ly">Vật lý đại cương</a></li>
+      <li><a href="#hoa">Hóa đại cương</a></li>
+      <li><a href="#thuat-toan">Giải thuật</a></li>
+      <li><a href="#goi-moi">Viết một gói mới</a></li>
+    </ol>
+    <div class="theme" role="group" aria-label="Giao diện">
+      <button type="button" data-theme-set="">Tự động</button>
+      <button type="button" data-theme-set="light">Sáng</button>
+      <button type="button" data-theme-set="dark">Tối</button>
+    </div>
+  </nav>
+
+  <main>
+    <header class="intro">
+      <p class="kicker">Bản 0.3 — gói môn học nạp theo nhu cầu, kéo thả trực tiếp</p>
+      <h1>Cùng một ngôn ngữ hình ảnh cho toán, vật lý, hóa và giải thuật.</h1>
+      <p>Mỗi môn là một gói riêng trong <code>src/subjects/</code>, chỉ được tải khi trang có hình của môn đó. Lõi dùng chung: hệ phản ứng, hệ trục, sân khấu không trục, trình phát từng bước, bộ giải phương trình vi phân, điều khiển và các khối học tập.</p>
+    </header>
+
+    <section class="part" id="bai-hoc">
+      <h2>Mẫu một bài học</h2>
+      <p class="part-lede">Hình động chỉ là một bước. Một bài học đầy đủ đi theo thứ tự: lý thuyết ngắn → dự đoán → xem và thao tác → tự giải rồi mở lời giải từng bước → tự kiểm tra không nhìn lời giải.</p>
+      <div class="prose">
+        <p><strong>Lý thuyết.</strong> Hàm ghép nhánh liên tục tại $x_0$ khi và chỉ khi $\lim_{x\to x_0^-} f(x) = \lim_{x\to x_0^+} f(x) = f(x_0)$. Trên mỗi khoảng còn lại hàm là sơ cấp nên tự động liên tục.</p>
+      </div>
+      <tc-scene preset="giai-tich/dang05-tham-so"
+        predict="Khi kéo $a$ tăng dần, nhánh trái $y = ax - 2$ thay đổi thế nào tại $x = 1$?"
+        predictOptions="Điểm cuối $L^-$ đi lên|Điểm cuối $L^-$ đi xuống|$L^-$ không đổi"
+        predictAnswer="1"
+        predictExplain="$L^- = a - 2$ tăng theo $a$; nó gặp $L^+ = 2$ đúng khi $a = 4$."></tc-scene>
+      <tc-steps heading="Lời giải ĐT01 — trình bày như bài thi">
+        <ol>
+          <li>Trên $(-\infty; 1)$ và $(1; +\infty)$, $f$ là hàm sơ cấp nên liên tục. Do đó chỉ cần xét tại $x = 1$.</li>
+          <li>$f(1) = 2\cdot1^2 = 2$ và $\lim_{x\to1^+} f(x) = \lim_{x\to1^+} 2x^2 = 2$.</li>
+          <li>$\lim_{x\to1^-} f(x) = \lim_{x\to1^-}(ax - 2) = a - 2$.</li>
+          <li>$f$ liên tục tại $1 \iff a - 2 = 2 \iff a = 4$.</li>
+        </ol>
+      </tc-steps>
+      <tc-check answer="-3" explain="$e^{-3x} - 1 \sim -3x$ và $\sin x \sim x$, nên $\lim_{x\to0} f(x) = -3 = m$.">
+        Tìm $m$ để $f(x) = \dfrac{e^{-3x}-1}{\sin x}$ khi $x \ne 0$, $f(0) = m$ liên tục trên $\mathbb R$ (ĐT03).
+      </tc-check>
+      <tc-check options="Gián đoạn bỏ được|Gián đoạn có bước nhảy|Gián đoạn loại 2" answer="2"
+        explain="$\lim_{x\to0^+}\frac{\sin x}{|x|} = 1$, $\lim_{x\to0^-}\frac{\sin x}{|x|} = -1$: hai giới hạn hữu hạn nhưng khác nhau.">
+        $f(x) = \dfrac{\sin x}{|x|}$ ($x \ne 0$), $f(0) = 1$. Điểm $x = 0$ là loại gián đoạn nào? (Dạng 4, bài 1a)
+      </tc-check>
+    </section>
+
+    <section class="part" id="dai-so">
+      <span class="chapter-num">Gói dai-so</span>
+      <h2>Đại số tuyến tính</h2>
+      <p class="part-lede">Ánh xạ tuyến tính của mặt phẳng: cột của ma trận là ảnh của vectơ cơ sở, định thức là hệ số co giãn diện tích, vectơ riêng là phương không bị xoay.</p>
+      <article class="dang"><tc-scene preset="dai-so/truot"></tc-scene></article>
+      <article class="dang"><tc-scene preset="dai-so/gia-tri-rieng"></tc-scene></article>
+    </section>
+
+    <section class="part" id="vat-ly">
+      <span class="chapter-num">Gói vat-ly</span>
+      <h2>Vật lý đại cương</h2>
+      <p class="part-lede">Mô phỏng theo thời gian bằng bộ giải Runge–Kutta của lõi. Vật và đồ thị chạy theo cùng một biến $t$.</p>
+      <article class="dang"><tc-scene preset="vat-ly/dao-dong-tat-dan"></tc-scene></article>
+    </section>
+
+    <section class="part" id="hoa">
+      <span class="chapter-num">Gói hoa</span>
+      <h2>Hóa đại cương</h2>
+      <p class="part-lede">Động học phản ứng: nhận ra bậc phản ứng từ hình dạng đồ thị và từ chu kỳ bán hủy.</p>
+      <article class="dang"><tc-scene preset="hoa/bac-phan-ung"></tc-scene></article>
+    </section>
+
+    <section class="part" id="thuat-toan">
+      <span class="chapter-num">Gói thuat-toan</span>
+      <h2>Cấu trúc dữ liệu và giải thuật</h2>
+      <p class="part-lede">Thuật toán là quá trình rời rạc, nên dùng trình phát từng bước thay cho animation liền mạch: tiến, lùi, tua, đồng bộ với mã giả.</p>
+      <article class="dang"><tc-scene preset="thuat-toan/sap-xep"></tc-scene></article>
+      <article class="dang"><tc-scene preset="thuat-toan/da-sap-xep"></tc-scene></article>
+    </section>
+
+    <section class="part" id="goi-moi">
+      <h2>Viết một gói mới</h2>
+      <div class="prose">
+        <p>Một gói là một thư mục trong <code>src/subjects/</code> với tệp <code>index.js</code>, khai báo trong <code>src/tiemcan.js</code> bằng <code>registerPack</code>. Gói chỉ import từ <code>src/api.js</code>, không chạm vào lõi.</p>
+      </div>
+<pre><code>// src/subjects/xac-suat/index.js
+import { definePack, scope, figure, signal } from '../../api.js';
+const scene = scope('xac-suat');
+
+scene('bernoulli', {
+  params: { p: 'number', n: 'int' },
+  defaults: { p: 0.5, n: 200 },
+  mount(host, p) {
+    const F = figure(host, p);
+    const b = F.board({ x: [0, p.n], y: [0, 1] });
+    // … dựng hình bằng b.curve, b.dots, F.slider, F.readout, F.status …
+    return { destroy: () => F.destroy() };
+  },
+});
+definePack('xac-suat', { name: 'Xác suất thống kê', presets: { … } });
+
+// src/tiemcan.js
+registerPack('xac-suat', { name: 'Xác suất thống kê', load: () => import('./subjects/xac-suat/index.js') });
+
+// trong trang
+&lt;tc-scene preset="xac-suat/luat-so-lon"&gt;&lt;/tc-scene&gt;</code></pre>
+    </section>
+  </main>
+</div>
+<script>
+  addEventListener('DOMContentLoaded', () => {
+    renderMathInElement?.(document.querySelector('main'), {
+      delimiters: [{ left: '$', right: '$', display: false }],
+      ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code', 'tc-scene'],
+      throwOnError: false,
+    });
+  });
+  const btns = document.querySelectorAll('[data-theme-set]');
+  const mark = () => btns.forEach((b) => b.setAttribute('aria-pressed', String((document.documentElement.dataset.theme || '') === b.dataset.themeSet)));
+  btns.forEach((b) => b.addEventListener('click', () => {
+    const t = b.dataset.themeSet;
+    if (t) document.documentElement.dataset.theme = t; else delete document.documentElement.dataset.theme;
+    try { t ? localStorage.setItem('tc-theme', t) : localStorage.removeItem('tc-theme'); } catch {}
+    mark();
+  }));
+  mark();
+</script>
+</body>
+</html>

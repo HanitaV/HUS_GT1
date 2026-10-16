@@ -1,29 +1,24 @@
-# HƯỚNG DẪN ÔN TẬP GIẢI TÍCH I
+# HƯỚNG DẪN ÔN TẬP GIẢI TÍCH I ( phiên bản tinh chỉnh phù hợp với khoa ngoài )
 
 **Học phần:** MAT1091 · **05 chương** · **20 dạng bài** · **Ôn tập tự luận**
 
 **TRƯỜNG ĐẠI HỌC KHOA HỌC TỰ NHIÊN – ĐẠI HỌC QUỐC GIA HÀ NỘI**  
 *03 tín chỉ · 30 tiết lý thuyết · 30 tiết bài tập · 90 tiết tự học. Thời gian thi 90 phút, tự luận, không sử dụng tài liệu (theo thông tin ghi trong bản tổng hợp gốc; cần đối chiếu đề cương học phần áp dụng).*
 
-> **Giới thiệu.** Tài liệu hệ thống hóa kiến thức Giải tích I (MAT1091) thành 5 chương, 20 dạng bài, gồm phương pháp chủ yếu, bài tập tự luyện và một số câu hỏi mang nhãn đề thi các năm từ 2022–2023 đến 2025–2026. Nội dung học thuật và bài tập được giữ theo bản Markdown đã cung cấp. Việc biên tập lần này tập trung vào cấu trúc, điều hướng và trích dẫn nguồn.
-
 <a id="nguon-tham-khao"></a>
 
 ## Nguồn tài liệu và trích dẫn
 
-### Tài liệu nền
+### Tài liệu được trích dẫn
 
 <a id="nguon-tl01"></a>
 
 **[TL01] Tài liệu của HAMIC**
 
-> **KHOA TOÁN - CƠ - TIN HỌC**  
-> **CÂU LẠC BỘ TOÁN TIN HAMIC**  
-> **HƯỚNG DẪN ÔN TẬP GIẢI TÍCH I**  
-> *Dành cho sinh viên toàn trường tham gia lớp Chinh phục A+*  
+> **CÂU LẠC BỘ TOÁN TIN HAMIC** - **HƯỚNG DẪN ÔN TẬP GIẢI TÍCH I**  
 > **Tác giả: Nguyễn Hoàng Đạt**
 
-*Tài liệu được dẫn làm nguồn tham khảo về cấu trúc ôn tập, theo thông tin người dùng cung cấp. Chưa có thông tin năm xuất bản, số trang hay đường dẫn bản gốc để ghi trích dẫn thư mục chi tiết.*
+*Tài liệu được dẫn làm nguồn tham khảo về cấu trúc ôn tập.*
 
 <a id="nguon-tl02"></a>
 
@@ -41,8 +36,6 @@
 | <a id="nguon-dt04"></a>**ĐT04** | Đề thi MAT1091 — Năm học 2024–2025 |
 | <a id="nguon-dt05"></a>**ĐT05** | Đề thi MAT1091 — Chương trình CLC Hóa, năm học 2025–2026 |
 | <a id="nguon-dt06"></a>**ĐT06** | Đề thi MAT1091 — Học kỳ Hè, năm học 2025–2026 |
-
-> **Ghi chú về xuất xứ:** Các mã ĐT01–ĐT06 tham chiếu đến **nhãn đề thi có trong tệp Markdown đầu vào**, không phải xác nhận rằng đã đối chiếu với bản scan/đề gốc được công bố chính thức. Không sử dụng nhãn “HK Hè 2026–2027” hoặc khẳng định đã có đề thi của năm học tương lai.
 
 <a id="muc-luc"></a>
 

@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tiệm Cận — hình minh họa động cho Giải tích I</title>
+<meta name="description" content="Framework dựng hình minh họa động cho Giải tích I (MAT1091): giới hạn, nguyên lý kẹp, liên tục, đạo hàm, tích phân, chuỗi. Chạy thẳng trên GitHub Pages, không cần build.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,500;0,7..72,600;1,7..72,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="tiemcan.css">
+<link rel="stylesheet" href="docs.css">
+<script>try { const t = localStorage.getItem('tc-theme'); if (t) document.documentElement.dataset.theme = t; } catch {}</script>
+<script type="module" src="src/tiemcan.js"></script>
+</head>
+<body>
+<div class="layout">
+  <nav class="toc" aria-label="Mục lục">
+    <p class="brand">Tiệm Cận</p>
+    <p class="brand-sub">Framework hình minh họa động cho Giải tích I · MAT1091</p>
+    <ol>
+      <li><a href="#mo-dau">Mở đầu</a></li>
+      <li><a href="#nguyen-tac">Nguyên tắc thiết kế</a></li>
+      <li><a href="#cach-dung">Cách dùng</a></li>
+      <li><a href="#chuong-1">Chương I. Nhập môn</a></li>
+      <li><a href="#chuong-2">Chương II. Giới hạn, liên tục</a></li>
+      <li><a href="#chuong-3">Chương III. Vi phân</a></li>
+      <li><a href="#chuong-4">Chương IV. Tích phân</a></li>
+      <li><a href="#chuong-5">Chương V. Chuỗi</a></li>
+      <li><a href="#ban-do">Bản đồ phủ 20 dạng</a></li>
+      <li><a href="#kien-truc">Kiến trúc</a></li>
+      <li><a href="mon-hoc.html">Các môn khác →</a></li>
+    </ol>
+    <div class="theme" role="group" aria-label="Giao diện">
+      <button type="button" data-theme-set="">Tự động</button>
+      <button type="button" data-theme-set="light">Sáng</button>
+      <button type="button" data-theme-set="dark">Tối</button>
+    </div>
+  </nav>
+
+  <main>
+    <header class="intro" id="mo-dau">
+      <p class="kicker">Bản nền tảng 0.3.1 — Giải tích I · <a href="mon-hoc.html">xem gói các môn khác và mẫu bài học</a></p>
+      <h1>Nhìn thấy một dãy số tiến về giới hạn mà không bao giờ chạm tới nó.</h1>
+      <p>Tiệm Cận là bộ công cụ dựng hình minh họa động cho các khái niệm Giải tích I: giới hạn, nguyên lý kẹp, liên tục, đạo hàm, tích phân, chuỗi. Mỗi hình là một thẻ HTML, chạy thẳng trên GitHub Pages, không cần build, không phụ thuộc framework JavaScript nào.</p>
+      <p>Hình dưới đây là dãy $u_n = \left(1 + \frac1n\right)^n$ — dãy tăng, luôn nhỏ hơn $e$, và tiến về $e$. Bấm <em>Chạy</em>, rồi <em>Phóng to quanh L</em>.</p>
+    </header>
+
+    <div class="hero">
+      <tc-scene kind="limit-sequence" autoplay
+        u="(1 + 1/n)^n" L="e" nMax="40" eps="0.12" tex="u_n"
+        heading="$u_n = \left(1+\frac1n\right)^n \to e$"
+        caption="Mọi điểm nằm dưới đường $L = e$: khoảng cách $e - u_n$ xấp xỉ $\frac{e}{2n}$, nhỏ dần nhưng luôn dương. Giới hạn chuẩn này dùng trong Dạng 2 ($\lim(1+\frac kn)^n = e^k$) và Dạng 19."></tc-scene>
+    </div>
+
+    <section class="part" id="nguyen-tac">
+      <h2>Nguyên tắc thiết kế</h2>
+      <div class="prose">
+        <p>Framework được xây trước website để mọi trang ôn tập sau này dùng chung một ngôn ngữ hình ảnh. Bốn quy ước sau áp dụng cho mọi hình.</p>
+        <ul>
+          <li><strong>Chuyển động là một quá trình toán học, không phải trang trí.</strong> Thứ duy nhất được phép chuyển động là đại lượng đang tiến tới giới hạn: chỉ số $n$, sai số $\varepsilon$, bước $h$, cận $A$, bậc khai triển. Không có hiệu ứng bay vào, nảy, phát sáng.</li>
+          <li><strong>Người học giữ quyền điều khiển.</strong> Mọi animation đều có thanh trượt tương ứng để tua tay, có nút dừng, và tự tắt khi hệ điều hành bật chế độ giảm chuyển động.</li>
+          <li><strong>Màu mang nghĩa và giữ nguyên trên mọi hình.</strong> Thanh số liệu bên dưới dùng chính màu đó làm chú giải, nên không cần hộp chú thích riêng.</li>
+          <li><strong>Mỗi hình kết thúc bằng một câu kết luận.</strong> Dòng trạng thái đọc số liệu hiện tại và nói ra điều hình đang chứng minh, như cách giáo viên chỉ vào bảng.</li>
+        </ul>
+        <div class="legend" aria-label="Quy ước màu">
+          <div><i style="border-color: var(--tc-main)"></i><p style="margin:0"><b>Đối tượng khảo sát</b><br><span>$u_n$, $f(x)$, cát tuyến</span></p></div>
+          <div><i style="border-color: var(--tc-lower)"></i><p style="margin:0"><b>Cận dưới, phía trái</b><br><span>$a_n$, $x_0 - h$, $L^-$</span></p></div>
+          <div><i style="border-color: var(--tc-upper)"></i><p style="margin:0"><b>Cận trên, phía phải</b><br><span>$b_n$, $x_0 + h$, $P_n(x)$, $S_N$</span></p></div>
+          <div><i style="border-color: var(--tc-limit)"></i><p style="margin:0"><b>Giới hạn, giá trị đích</b><br><span>$L$, dải $\varepsilon$, $f'(x_0)$</span></p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="part" id="cach-dung">
+      <h2>Cách dùng</h2>
+      <div class="prose">
+        <p>Nạp một tệp CSS và một module, rồi đặt thẻ <code>&lt;tc-scene&gt;</code> ở bất kỳ đâu — kể cả bên trong Markdown của Jekyll. Hình chỉ được dựng khi cuộn tới, nên một trang dài nhiều hình vẫn nhẹ.</p>
+      </div>
+<pre><code>&lt;link rel="stylesheet" href="tiemcan/tiemcan.css"&gt;
+&lt;script type="module" src="tiemcan/src/tiemcan.js"&gt;&lt;/script&gt;
+
+&lt;!-- dùng hình dựng sẵn theo tài liệu ôn tập --&gt;
+&lt;tc-scene preset="dang02-kep"&gt;&lt;/tc-scene&gt;
+
+&lt;!-- hoặc tự khai báo: hàm viết như trên giấy --&gt;
+&lt;tc-scene kind="function-limit"
+  f="(sqrt(1 + 2x) - cbrt(1 - 3x)) / x" x0="0" L="2"
+  caption="Giới hạn dạng $\frac00$ tại $x = 0$."&gt;&lt;/tc-scene&gt;</code></pre>
+      <div class="prose">
+        <p>Biểu thức được phân tích bằng bộ đọc riêng của framework (không dùng <code>eval</code>), hỗ trợ nhân ngầm <code>2x</code>, lũy thừa <code>^</code>, giai thừa <code>n!</code>, trị tuyệt đối <code>|x|</code> và các hàm <code>sin cos tan cot arcsin arccos arctan exp ln sqrt cbrt abs</code>.</p>
+      </div>
+    </section>
+
+    <section class="part" id="chuong-1">
+      <span class="chapter-num">Chương I</span>
+      <h2>Nhập môn giải tích</h2>
+      <p class="part-lede">Dạng 2 — giới hạn của dãy số: định nghĩa ε–n₀, nguyên lý kẹp, định lý Weierstrass cho dãy truy hồi.</p>
+
+      <article class="dang">
+        <h3>Định nghĩa giới hạn theo ε và n₀</h3>
+        <p class="src">Dạng 2, mục 1 · <a href="#nguon">TL01</a></p>
+        <p class="reactive">Kéo con số gạch chân: với $\varepsilon$ = <tc-var name="eps" value="0.2" min="0.005" max="1" step="0.005" scale="log" digits="3" label="epsilon"></tc-var>, mọi số hạng có chỉ số $n$ lớn hơn $n_0$ đều nằm trong dải $(1 - \varepsilon;\ 1 + \varepsilon)$. Ước lượng thô: $|u_n - 1| = \frac1n < \varepsilon \iff n > \frac{1}{\varepsilon}$ = <tc-show expr="1/eps" digits="2"></tc-show>.<tc-show when="eps < 0.03"> Dải đã rất hẹp, nhưng $n_0$ vẫn là một số hữu hạn — đó là toàn bộ nội dung của định nghĩa.</tc-show></p>
+        <tc-scene preset="dang02-dinh-nghia" bind="eps:eps"></tc-scene>
+        <details class="usage"><summary>Mã nhúng</summary><pre><code>&lt;tc-scene preset="dang02-dinh-nghia"&gt;&lt;/tc-scene&gt;
+&lt;!-- tương đương --&gt;
+&lt;tc-scene kind="limit-sequence" u="1 + (-1)^n / n" L="1" nMax="40" eps="0.2"&gt;&lt;/tc-scene&gt;</code></pre></details>
+      </article>
+
+      <article class="dang">
+        <h3>Nguyên lý kẹp cho dãy số</h3>
+        <p class="src">Dạng 2, mục 2 và bài tập 1c · <a href="#nguon">TL01</a></p>
+        <tc-scene preset="dang02-kep"></tc-scene>
+        <details class="usage"><summary>Mã nhúng</summary><pre><code>&lt;tc-scene kind="squeeze" mode="sequence"
+  a="n / sqrt(n^2 + n)" u="…" b="n / sqrt(n^2 + 1)" L="1"&gt;&lt;/tc-scene&gt;
+&lt;!-- u_n là một tổng n số hạng nên preset truyền hàm JS cho u --&gt;</code></pre></details>
+      </article>
+
+      <article class="dang">
+        <h3>Dãy truy hồi đơn điệu, bị chặn</h3>
+        <p class="src">Dạng 2, mục 3 và bài tập 2a, 2c · <a href="#nguon">TL01</a></p>
+        <tc-scene preset="dang02-truy-hoi"></tc-scene>
+        <div style="height: 40px"></div>
+        <tc-scene preset="dang02-newton"></tc-scene>
+        <details class="usage"><summary>Mã nhúng</summary><pre><code>&lt;tc-scene kind="cobweb" g="sqrt(2 + x)" u1="sqrt(2)" L="2" steps="7"&gt;&lt;/tc-scene&gt;</code></pre></details>
+      </article>
+    </section>
+
+    <section class="part" id="chuong-2">
+      <span class="chapter-num">Chương II</span>
+      <h2>Giới hạn và sự liên tục của hàm số một biến</h2>
+      <p class="part-lede">Dạng 3, 4, 5 — giới hạn dạng vô định, nguyên lý kẹp cho hàm, phân loại điểm gián đoạn và tìm tham số để hàm liên tục.</p>
+
+      <article class="dang">
+        <h3>Giới hạn tại điểm hàm số không xác định</h3>
+        <p class="src">Dạng 3, bài tập A1 · <a href="#nguon">ĐT03</a></p>
+        <tc-scene preset="dang03-gioi-han"></tc-scene>
+        <div style="height: 32px"></div>
+        <tc-scene preset="dang03-vcb"></tc-scene>
+        <tc-check answer="2" explain="$\sqrt{1+2x} - 1 \sim x$ và $\sqrt[3]{1-3x} - 1 \sim -x$, nên tử số $\sim 2x$ và giới hạn bằng 2.">
+          Không nhìn hình, tính lại $\lim_{x\to0}\frac{\sqrt{1+2x}-\sqrt[3]{1-3x}}{x}$ bằng <tc-term tip="Vô cùng bé tương đương: $\alpha \sim \beta$ khi $\lim \frac{\alpha}{\beta} = 1$. Chỉ được thay trong tích và thương.">VCB tương đương</tc-term>.
+          <tc-hint>Thêm bớt 1 ở tử số: $\left(\sqrt{1+2x} - 1\right) - \left(\sqrt[3]{1-3x} - 1\right)$.</tc-hint>
+          <tc-hint>Dùng $\sqrt[k]{1+u} - 1 \sim \frac{u}{k}$ với $u = 2x$, $k = 2$ và $u = -3x$, $k = 3$.</tc-hint>
+        </tc-check>
+      </article>
+
+      <article class="dang">
+        <h3>Nguyên lý kẹp cho hàm số</h3>
+        <p class="src">Dạng 4, bài tập 1b</p>
+        <tc-scene preset="dang04-kep-ham"></tc-scene>
+        <details class="usage"><summary>Mã nhúng</summary><pre><code>&lt;tc-scene kind="squeeze" mode="function"
+  lower="-abs(x)" f="x sin(1/x)" upper="abs(x)" x0="0" L="0" delta="0.6"&gt;&lt;/tc-scene&gt;</code></pre></details>
+      </article>
+
+      <article class="dang">
+        <h3>Tìm tham số để hàm ghép nhánh liên tục</h3>
+        <p class="src">Dạng 5, bài tập A1 và A2 · <a href="#nguon">ĐT01, ĐT03</a></p>
+        <tc-scene preset="dang05-tham-so"></tc-scene>
+        <div style="height: 40px"></div>
+        <tc-scene preset="dang05-gia-tri-m"></tc-scene>
+        <details class="usage"><summary>Mã nhúng</summary><pre><code>&lt;tc-scene kind="continuity" left="a x - 2" right="2x^2" x0="1"
+  aRange="-2, 8" answer="4"&gt;&lt;/tc-scene&gt;
+&lt;!-- f(x₀) = m riêng: thêm at="a" và aTex="m" --&gt;</code></pre></details>
+      </article>
+    </section>
+
+    <section class="part" id="chuong-3">
+      <span class="chapter-num">Chương III</span>
+      <h2>Phép tính vi phân của hàm số một biến</h2>
+      <p class="part-lede">Dạng 6, 7, 10 — đạo hàm bằng định nghĩa, đạo hàm một phía tại điểm gãy, khai triển Taylor – Maclaurin.</p>
+
+      <article class="dang">
+        <h3>Đạo hàm tại điểm ghép nhánh bằng định nghĩa</h3>
+        <p class="src">Dạng 6, bài tập A2 · <a href="#nguon">ĐT02</a></p>
+        <tc-scene preset="dang06-dinh-nghia"></tc-scene>
+        <tc-check vars="k=2..6" answer="k^2/2" explain="$f'(0) = \lim_{x\to0}\frac{e^{ {k}x} - 1 - {k}x}{x^2}$; khai triển $e^{ {k}x} = 1 + {k}x + \frac{ {k}^2x^2}{2} + o(x^2)$ cho $\frac{ {k}^2}{2}$.">
+          Dạng đề lặp lại ở ĐT02, ĐT04, ĐT06 — mỗi lần bấm <em>Bài khác</em> là một hệ số mới. Cho $f(x) = \frac{e^{ {k}x} - 1}{x}$ khi $x \ne 0$, $f(0) = {k}$. Tính $f'(0)$.
+          <tc-hint>Không đạo hàm công thức nhánh rồi thay $x = 0$. Viết $f'(0) = \lim_{x\to0}\frac{f(x) - f(0)}{x}$.</tc-hint>
+          <tc-hint>Quy đồng: $\frac{f(x) - {k}}{x} = \frac{e^{ {k}x} - 1 - {k}x}{x^2}$.</tc-hint>
+          <tc-hint>Khai triển Maclaurin $e^u = 1 + u + \frac{u^2}{2} + o(u^2)$ với $u = {k}x$.</tc-hint>
+        </tc-check>
+      </article>
+
+      <article class="dang">
+        <h3>Đạo hàm trái khác đạo hàm phải</h3>
+        <p class="src">Dạng 6, bài tập A1 · <a href="#nguon">ĐT03</a></p>
+        <tc-scene preset="dang06-tri-tuyet-doi"></tc-scene>
+      </article>
+
+      <article class="dang">
+        <h3>Khi nào không được thay vô cùng bé tương đương</h3>
+        <p class="src">Dạng 3, quy tắc thay thế; Dạng 10, bài tập 2b</p>
+        <tc-scene preset="dang10-bay-tong" bind="delta:d10"></tc-scene>
+        <tc-steps heading="Lời giải bài 2b — mỗi bước điều khiển hình phía trên">
+          <ol>
+            <li data-set="d10=1">Tính $\lim_{x\to0}\frac{x^2\sin x}{\tan x - x}$. Tử số: $x^2\sin x \sim x^3$ (tích, được thay).</li>
+            <li data-set="d10=0.3">Mẫu số là một <em>hiệu</em> hai VCB cùng bậc $x$ triệt tiêu nhau: không được thay $\tan x$ bởi $x$. Phóng to: hai đường trên trùng nhau nhưng hiệu (khung dưới) không bằng 0.</li>
+            <li data-set="d10=0.02">Khai triển Maclaurin: $\tan x = x + \frac{x^3}{3} + o(x^3)$, nên $\tan x - x \sim \frac{x^3}{3}$ — khung dưới tiến về $\frac13$.</li>
+            <li>Vậy giới hạn $= \lim \frac{x^3}{x^3/3} = 3$.</li>
+          </ol>
+        </tc-steps>
+      </article>
+
+      <article class="dang">
+        <h3>Khai triển Maclaurin và khoảng hội tụ</h3>
+        <p class="src">Dạng 10, mục 2; Dạng 20, mục 1</p>
+        <tc-scene preset="dang10-taylor"></tc-scene>
+      </article>
+    </section>
+
+    <section class="part" id="chuong-4">
+      <span class="chapter-num">Chương IV</span>
+      <h2>Phép tính tích phân của hàm số một biến</h2>
+      <p class="part-lede">Dạng 13, 15 — tích phân xác định như giới hạn của tổng Riemann; tích phân suy rộng như giới hạn của hàm diện tích.</p>
+
+      <article class="dang">
+        <h3>Tổng Riemann</h3>
+        <p class="src">Dạng 13, bài tập A3 · <a href="#nguon">ĐT04</a></p>
+        <tc-scene preset="dang13-riemann"></tc-scene>
+      </article>
+
+      <article class="dang">
+        <h3>Tích phân suy rộng hội tụ và phân kỳ</h3>
+        <p class="src">Dạng 15, bài tập A2 · <a href="#nguon">ĐT03</a></p>
+        <tc-scene preset="dang15-suy-rong"></tc-scene>
+        <div style="height: 40px"></div>
+        <tc-scene preset="dang15-phan-ky"></tc-scene>
+      </article>
+    </section>
+
+    <section class="part" id="chuong-5">
+      <span class="chapter-num">Chương V</span>
+      <h2>Chuỗi số và chuỗi hàm</h2>
+      <p class="part-lede">Dạng 16, 17, 20 — tổng riêng của chuỗi dương và chuỗi đan dấu; tổng riêng chuỗi Fourier và định lý Dirichlet.</p>
+
+      <article class="dang">
+        <h3>Tiêu chuẩn Cauchy</h3>
+        <p class="src">Dạng 16, bài tập A1 · <a href="#nguon">ĐT02</a></p>
+        <tc-scene preset="dang16-cauchy"></tc-scene>
+      </article>
+
+      <article class="dang">
+        <h3>Chuỗi đan dấu và tiêu chuẩn Leibniz</h3>
+        <p class="src">Dạng 17, mục 1</p>
+        <tc-scene preset="dang17-dan-dau"></tc-scene>
+      </article>
+
+      <article class="dang">
+        <h3>Chuỗi Fourier</h3>
+        <p class="src">Dạng 20, bài tập 2a, 2b</p>
+        <tc-scene preset="dang20-fourier-abs"></tc-scene>
+        <div style="height: 40px"></div>
+        <tc-scene preset="dang20-fourier-x"></tc-scene>
+      </article>
+    </section>
+
+    <section class="part" id="ban-do">
+      <h2>Bản đồ phủ 20 dạng bài</h2>
+      <p class="part-lede">Cảnh nào phục vụ dạng nào, và phần nào còn phải xây trước khi dựng website. Các dạng thuần biến đổi đại số không cần hình động sẽ dùng khối công thức tĩnh.</p>
+      <div class="table-wrap">
+      <table class="map">
+        <thead><tr><th>Dạng</th><th>Nội dung</th><th>Cảnh</th><th>Trạng thái</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>Tập xác định, hàm hợp, hàm ngược</td><td><code>inverse</code> — đối xứng qua $y = x$</td><td class="state-plan">Kế hoạch</td></tr>
+          <tr><td>2</td><td>Giới hạn dãy số, kẹp, Weierstrass</td><td><code>limit-sequence</code>, <code>squeeze</code>, <code>cobweb</code></td><td class="state-done">Có</td></tr>
+          <tr><td>3</td><td>Giới hạn hàm số, VCB tương đương</td><td><code>function-limit</code>, <code>vcb</code></td><td class="state-done">Có</td></tr>
+          <tr><td>4</td><td>Liên tục, phân loại gián đoạn</td><td><code>continuity</code>, <code>squeeze</code> (hàm)</td><td class="state-done">Có</td></tr>
+          <tr><td>5</td><td>Tham số để hàm liên tục</td><td><code>continuity</code></td><td class="state-done">Có</td></tr>
+          <tr><td>6</td><td>Đạo hàm bằng định nghĩa, trị tuyệt đối</td><td><code>derivative</code></td><td class="state-done">Có</td></tr>
+          <tr><td>7</td><td>Tham số để hàm khả vi</td><td><code>derivative</code> + tham số $a, b$</td><td class="state-plan">Mở rộng</td></tr>
+          <tr><td>8</td><td>Rolle, Lagrange, L'Hospital</td><td><code>mean-value</code> — tiếp tuyến song song cát tuyến</td><td class="state-plan">Kế hoạch</td></tr>
+          <tr><td>9</td><td>Đạo hàm cấp cao, Leibniz</td><td>Khối công thức tĩnh</td><td class="state-plan">Không cần hình động</td></tr>
+          <tr><td>10</td><td>Taylor – Maclaurin</td><td><code>taylor</code></td><td class="state-done">Có</td></tr>
+          <tr><td>11</td><td>Khảo sát hàm, tối ưu</td><td><code>optimize</code> — hộp/lon thay đổi kích thước theo $x$</td><td class="state-plan">Kế hoạch</td></tr>
+          <tr><td>12</td><td>Nguyên hàm</td><td>Khối công thức tĩnh</td><td class="state-plan">Không cần hình động</td></tr>
+          <tr><td>13</td><td>Tích phân xác định</td><td><code>riemann</code></td><td class="state-done">Có</td></tr>
+          <tr><td>14</td><td>Diện tích, thể tích, độ dài cung</td><td><code>region</code> có sẵn trong Board; cần thêm lát cắt tròn xoay</td><td class="state-plan">Kế hoạch</td></tr>
+          <tr><td>15</td><td>Tích phân suy rộng</td><td><code>improper</code></td><td class="state-done">Có</td></tr>
+          <tr><td>16</td><td>Chuỗi số dương</td><td><code>series</code></td><td class="state-done">Có</td></tr>
+          <tr><td>17</td><td>Chuỗi đan dấu</td><td><code>series</code></td><td class="state-done">Có</td></tr>
+          <tr><td>18</td><td>Miền hội tụ chuỗi lũy thừa</td><td><code>power-series</code> — tổng riêng trên trục số, hai đầu mút</td><td class="state-plan">Kế hoạch</td></tr>
+          <tr><td>19</td><td>Miền hội tụ chuỗi hàm</td><td><code>power-series</code> với $\varphi(x)$</td><td class="state-plan">Kế hoạch</td></tr>
+          <tr><td>20</td><td>Chuỗi lũy thừa, chuỗi Fourier</td><td><code>taylor</code>, <code>fourier</code></td><td class="state-done">Có</td></tr>
+        </tbody>
+      </table>
+      </div>
+    </section>
+
+    <section class="part" id="kien-truc">
+      <h2>Kiến trúc</h2>
+      <div class="prose">
+        <p>Ba tầng, mỗi tầng chỉ phụ thuộc tầng dưới. Toàn bộ là ES module thuần, khoảng 2 000 dòng, không có bước build.</p>
+        <h3>Tầng lõi — <code>src/core</code></h3>
+        <p><code>signal.js</code> là hệ phản ứng nhỏ: đồ thị nào đọc tham số nào sẽ tự vẽ lại khi tham số đó đổi, gom lại một lần mỗi khung hình. <code>expr.js</code> đọc biểu thức toán viết tay thành hàm JavaScript mà không dùng <code>eval</code>. <code>anim.js</code> cung cấp tween (kể cả nội suy theo thang log cho $\varepsilon, h, \delta \to 0$) và <code>runner</code> — kịch bản animation có thể dừng giữa chừng.</p>
+        <h3>Tầng vẽ — <code>src/render</code></h3>
+        <p><code>Board</code> là hệ trục SVG với kích thước bằng điểm ảnh thật, nên nét và chữ không co giãn theo màn hình. Các phần tử: <code>curve</code> (tự nhấc bút tại tiệm cận đứng và điểm gãy), <code>region</code>, <code>point</code>, <code>dots</code>, <code>hline</code>/<code>vline</code>, <code>segment</code>, <code>line</code>, <code>hband</code>/<code>vband</code>, <code>rects</code>, <code>polyline</code>, <code>label</code> (KaTeX). <code>setView</code> phóng to mượt theo thang log.</p>
+        <h3>Tầng cảnh — <code>src/scenes</code></h3>
+        <p>Mỗi cảnh ghép Board với điều khiển và số liệu, đăng ký bằng <code>defineScene</code> kèm lược đồ tham số. Thẻ <code>&lt;tc-scene&gt;</code> đọc thuộc tính HTML, chuyển kiểu theo lược đồ, và dựng cảnh khi cuộn tới. Tài liệu đầy đủ ở <code>README.md</code> và <code>ARCHITECTURE.md</code>.</p>
+      </div>
+    </section>
+
+    <footer id="nguon">
+      <p>Nội dung toán và đề bài lấy từ <em>Hướng dẫn ôn tập Giải tích I (MAT1091), phiên bản tinh chỉnh phù hợp với khoa ngoài</em>, Trường ĐH Khoa học Tự nhiên – ĐHQG Hà Nội; tài liệu này dẫn [TL01] Câu lạc bộ Toán Tin HAMIC, <em>Hướng dẫn ôn tập Giải tích I</em>, tác giả Nguyễn Hoàng Đạt, và các đề ĐT01–ĐT06 (MAT1091, 2022–2026).</p>
+      <p>Công thức hiển thị bằng KaTeX. Phông chữ Be Vietnam Pro và Literata.</p>
+    </footer>
+  </main>
+</div>
+
+<script>
+  // công thức trong văn bản trang (không thuộc framework)
+  addEventListener('DOMContentLoaded', () => {
+    renderMathInElement?.(document.querySelector('main'), {
+      delimiters: [{ left: '$', right: '$', display: false }],
+      ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code', 'tc-scene'],
+      throwOnError: false,
+    });
+  });
+  // chọn giao diện
+  const btns = document.querySelectorAll('[data-theme-set]');
+  const mark = () => btns.forEach((b) => b.setAttribute('aria-pressed', String((document.documentElement.dataset.theme || '') === b.dataset.themeSet)));
+  btns.forEach((b) => b.addEventListener('click', () => {
+    const t = b.dataset.themeSet;
+    if (t) document.documentElement.dataset.theme = t; else delete document.documentElement.dataset.theme;
+    try { t ? localStorage.setItem('tc-theme', t) : localStorage.removeItem('tc-theme'); } catch {}
+    mark();
+  }));
+  mark();
+  // đánh dấu mục đang đọc
+  const links = [...document.querySelectorAll('.toc a')];
+  const io = new IntersectionObserver((es) => es.forEach((e) => {
+    if (!e.isIntersecting) return;
+    links.forEach((a) => a.setAttribute('aria-current', String(a.getAttribute('href') === '#' + e.target.id)));
+  }), { rootMargin: '-30% 0px -65% 0px' });
+  document.querySelectorAll('main [id]').forEach((s) => io.observe(s));
+</script>
+</body>
+</html>

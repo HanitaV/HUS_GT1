@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Demo: Đạo hàm bằng định nghĩa (Dạng 6)</title>
+  <link rel="stylesheet" href="../css/main.css">
+  <script src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css">
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+</head>
+<body>
+  <button class="theme-toggle" onclick="document.documentElement.setAttribute('data-theme', document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark')">Dark / Light</button>
+  <div class="container">
+    <h1>Dạng 6: Đạo hàm bằng định nghĩa</h1>
+    <p>Đường secant (nét đứt) tiến dần thành đường tiếp tuyến khi \( h \to 0 \).</p>
+    <div id="board" class="viz-container jxgbox"></div>
+    <div class="explanation">
+      Kéo slider <strong>h</strong> về gần 0 để thấy secant slope tiến tới đạo hàm tại điểm A.
+      Đây là trực quan hóa định nghĩa \( f'(x_0) = \lim_{h\to 0}\frac{f(x_0+h)-f(x_0)}{h} \).
+    </div>
+  </div>
+  <script src="../js/core/visualizer-base.js"></script>
+  <script src="../js/core/function-evaluator.js"></script>
+  <script src="../js/viz/derivative-definition.js"></script>
+  <script>
+    createDerivativeDefinition('board', { formula: 'sin(x)', point: 1 });
+  </script>
+</body>
+</html>

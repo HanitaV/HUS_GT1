@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Demo: Giới hạn hàm số (Dạng 3)</title>
+  <link rel="stylesheet" href="../css/main.css">
+  <script src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css">
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+</head>
+<body>
+  <button class="theme-toggle" onclick="document.documentElement.setAttribute('data-theme', document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark')">Dark / Light</button>
+  <div class="container">
+    <h1>Dạng 3: Giới hạn hàm số</h1>
+    <p>Các điểm mẫu từ trái và phải tiến tới giá trị giới hạn (vòng tròn rỗng – không chạm).</p>
+    <div id="board" class="viz-container jxgbox"></div>
+    <div class="explanation">
+      Ví dụ \(\lim_{x\to 0}\frac{\sin x}{x} = 1\). Vòng tròn rỗng tại \( (0,1) \) thể hiện hàm chưa xác định hoặc không lấy giá trị tại đó, nhưng giới hạn tồn tại.
+    </div>
+  </div>
+  <script src="../js/core/visualizer-base.js"></script>
+  <script src="../js/core/function-evaluator.js"></script>
+  <script src="../js/viz/function-limit.js"></script>
+  <script>
+    createFunctionLimit('board', { formula: 'sin(x)/x', a: 0, L: 1 });
+  </script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>MathViz Framework – Foundation for MAT1091 Visualizations</title>
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+  <button class="theme-toggle" onclick="document.documentElement.setAttribute('data-theme', document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark')">Dark / Light</button>
+
+  <div class="container">
+    <h1>MathViz Framework Foundation</h1>
+    <p>Nền tảng framework cho website tĩnh (GitHub Pages) trực quan hóa các khái niệm Giải tích I (MAT1091).</p>
+
+    <h2>Demos (Foundation đầy đủ)</h2>
+    <ul>
+      <li><a href="examples/limit-demo.html">Dạng 2: Giới hạn dãy số – Điểm tiến tới α nhưng không chạm (có dải ε)</a></li>
+      <li><a href="examples/squeeze-demo.html">Nguyên lý kẹp – Hai hàm kẹp hàm ở giữa</a></li>
+      <li><a href="examples/function-limit-demo.html">Dạng 3: Giới hạn hàm số – Sampling trái/phải + vòng tròn rỗng</a></li>
+      <li><a href="examples/derivative-demo.html">Dạng 6: Đạo hàm bằng định nghĩa – Secant → Tangent</a></li>
+      <li><a href="examples/riemann-demo.html">Dạng 13: Tổng Riemann (native JSXGraph)</a></li>
+      <li><a href="examples/series-demo.html">Dạng 16: Tổng riêng chuỗi số – Partial sums</a></li>
+      <li><a href="examples/power-series-demo.html">Dạng 18: Miền hội tụ chuỗi lũy thừa – Radius highlight</a></li>
+    </ul>
+
+    <h2>Mục lục tương tác (skeleton – sẽ mở rộng theo tài liệu MAT1091)</h2>
+    <ul>
+      <li><strong>Chương I.</strong> Nhập môn giải tích (Dạng 1–2)</li>
+      <li><strong>Chương II.</strong> Giới hạn và sự liên tục (Dạng 3–5) ← trọng tâm đề thi</li>
+      <li><strong>Chương III.</strong> Phép tính vi phân (Dạng 6–11)</li>
+      <li><strong>Chương IV.</strong> Phép tính tích phân (Dạng 12–15)</li>
+      <li><strong>Chương V.</strong> Chuỗi số và chuỗi hàm (Dạng 16–20)</li>
+    </ul>
+
+    <h2>Cấu trúc</h2>
+    <p>Xem <a href="README.md">README.md</a> để biết cách mở rộng cho các dạng bài khác (liên tục, đạo hàm, tích phân, chuỗi...).</p>
+
+    <div class="explanation">
+      Framework này ưu tiên xây dựng nền tảng trước: modular visualizers với JSXGraph, dễ nhúng vào các trang nội dung sau này dựa trên mục lục 5 chương / 20 dạng.
+    </div>
+  </div>
+</body>
+</html>

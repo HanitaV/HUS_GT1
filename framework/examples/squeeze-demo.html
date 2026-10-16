@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Demo: Nguyên lý kẹp – Squeeze Theorem</title>
+  <link rel="stylesheet" href="../css/main.css">
+  <script src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css">
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+</head>
+<body>
+  <button class="theme-toggle" onclick="toggleTheme()">Dark / Light</button>
+
+  <div class="container">
+    <h1>Nguyên lý kẹp (Squeeze Theorem)</h1>
+    <p>Hai hàm kẹp (xanh và đỏ) ép hàm ở giữa (xanh lá) tiến tới cùng một giới hạn.</p>
+
+    <div id="board" class="viz-container jxgbox"></div>
+
+    <div class="explanation">
+      <strong>Ví dụ kinh điển:</strong> 
+      \( -|x| \le x \sin\frac{1}{x} \le |x| \) khi \( x \ne 0 \).<br>
+      Khi \( x \to 0 \), cả hai hàm biên tiến tới 0, do đó hàm ở giữa cũng tiến tới 0 (mặc dù dao động).
+      Zoom vào gần 0 để thấy rõ hiệu ứng kẹp.
+    </div>
+  </div>
+
+  <script src="../js/core/visualizer-base.js"></script>
+  <script src="../js/viz/squeeze.js"></script>
+  <script>
+    function toggleTheme() {
+      const html = document.documentElement;
+      html.setAttribute('data-theme', html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+    }
+
+    createSqueezeTheorem('board');
+  </script>
+</body>
+</html>

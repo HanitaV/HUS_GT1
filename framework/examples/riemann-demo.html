@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Demo: Tổng Riemann (Dạng 13)</title>
+  <link rel="stylesheet" href="../css/main.css">
+  <script src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css">
+</head>
+<body>
+  <button class="theme-toggle" onclick="document.documentElement.setAttribute('data-theme', document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark')">Dark / Light</button>
+  <div class="container">
+    <h1>Dạng 13: Tích phân xác định – Tổng Riemann</h1>
+    <p>Các hình chữ nhật xấp xỉ diện tích dưới đường cong. Tăng n để xấp xỉ tốt hơn.</p>
+    <div id="board" class="viz-container jxgbox"></div>
+    <div class="explanation">
+      Dùng element native <code>riemannsum</code> của JSXGraph. Slider n thay đổi số hình chữ nhật.
+    </div>
+  </div>
+  <script src="../js/core/visualizer-base.js"></script>
+  <script src="../js/core/function-evaluator.js"></script>
+  <script src="../js/viz/riemann-sum.js"></script>
+  <script>
+    createRiemannSum('board', { formula: 'sin(x)', a: 0, b: Math.PI });
+  </script>
+</body>
+</html>

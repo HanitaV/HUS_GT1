@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Demo: Miền hội tụ chuỗi lũy thừa (Dạng 18)</title>
+  <link rel="stylesheet" href="../css/main.css">
+  <script src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css">
+</head>
+<body>
+  <button class="theme-toggle" onclick="document.documentElement.setAttribute('data-theme', document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark')">Dark / Light</button>
+  <div class="container">
+    <h1>Dạng 18: Bán kính và miền hội tụ chuỗi lũy thừa</h1>
+    <p>Vùng tô màu là khoảng hội tụ \((x_0 - R, x_0 + R)\). Các đầu mút cần kiểm tra riêng.</p>
+    <div id="board" class="viz-container jxgbox"></div>
+    <div class="explanation">
+      Partial sum của chuỗi hình học \(\sum x^n\) (hội tụ khi \(|x| < 1\)). Vùng xanh là miền hội tụ.
+    </div>
+  </div>
+  <script src="../js/core/visualizer-base.js"></script>
+  <script src="../js/core/function-evaluator.js"></script>
+  <script src="../js/viz/power-series-radius.js"></script>
+  <script>
+    createPowerSeriesRadius('board', { center: 0, radius: 1 });
+  </script>
+</body>
+</html>
